@@ -80,12 +80,12 @@ emails.map(async (email, index) => {
                         </div>
 
                         <div class="mb-3">
-                            <label for="phoneNo" class="form-label">Phone no.</label><br>
-                            <input type="number" oninput="phoneNoValidation(this, 'phoneNoRequiredError_${myData.email}', 'phoneNoInvalidError_${myData.email}')" value="${myData.phoneNo.split(' ').slice(-1)[0]}" name="phoneNo" id="phoneNo${index}" class="form-control">
-                            <div id="phoneNoRequiredError_${myData.email}" class="invalid-feedback">
+                            <label for="phone" class="form-label">Phone no.</label><br>
+                            <input type="number" oninput="phoneValidation(this, 'phoneRequiredError_${myData.email}', 'phoneInvalidError_${myData.email}')" value="${myData.phone.split(' ').slice(-1)[0]}" name="phone" id="phone${index}" class="form-control">
+                            <div id="phoneRequiredError_${myData.email}" class="invalid-feedback">
                                 Phone No is required.
                             </div>
-                            <div id="phoneNoInvalidError_${myData.email}" class="invalid-feedback">
+                            <div id="phoneInvalidError_${myData.email}" class="invalid-feedback">
                                 Invalid Phone No!
                             </div>
                         </div>
@@ -165,7 +165,7 @@ emails.map(async (email, index) => {
         await selectGender(`input[name="gender_${myData.email}"]`, myData.gender);
         await selectHobby(`input[name="hobby_${myData.email}"]`, myData.hobby);
         await selectedTechnology(`technology_${myData.email}`, myData.technology);
-        const phoneInputField = document.querySelector(`#phoneNo${index}`);
+        const phoneInputField = document.querySelector(`#phone${index}`);
         const phoneInput = window.intlTelInput(phoneInputField, {
             utilsScript:
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
@@ -219,24 +219,24 @@ function lastNameValidation(elem, elemRequiredError, elemMaxLengthError) {
 }
 
 // * Phone No. validation
-function phoneNoValidation(elem, elemRequiredError, elemInvalidError) {
-    const phoneNo_regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    const phoneNo = elem.value.trim();
-    const phoneNoRequiredError = document.getElementById(elemRequiredError)
-    const phoneNoInvalidError = document.getElementById(elemInvalidError)
+function phoneValidation(elem, elemRequiredError, elemInvalidError) {
+    const phone_regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    const phone = elem.value.trim();
+    const phoneRequiredError = document.getElementById(elemRequiredError)
+    const phoneInvalidError = document.getElementById(elemInvalidError)
 
-    if (phoneNo == "" || phoneNo == null) {
-        phoneNoRequiredError ? phoneNoRequiredError.style.display = "block" : '';
-        phoneNoInvalidError ? phoneNoInvalidError.style.display = "none" : '';
+    if (phone == "" || phone == null) {
+        phoneRequiredError ? phoneRequiredError.style.display = "block" : '';
+        phoneInvalidError ? phoneInvalidError.style.display = "none" : '';
         return false
     }
     else {
-        phoneNoRequiredError ? phoneNoRequiredError.style.display = "none" : '';
-        if (phoneNo.match(phoneNo_regex)) {
-            phoneNoInvalidError ? phoneNoInvalidError.style.display = "none" : '';
-            return phoneNo
+        phoneRequiredError ? phoneRequiredError.style.display = "none" : '';
+        if (phone.match(phone_regex)) {
+            phoneInvalidError ? phoneInvalidError.style.display = "none" : '';
+            return phone
         } else {
-            phoneNoInvalidError ? phoneNoInvalidError.style.display = "block" : '';
+            phoneInvalidError ? phoneInvalidError.style.display = "block" : '';
             return false
         }
     }
@@ -299,18 +299,18 @@ function updateForm(elem) {
 
     const firstName = firstNameValidation(form.querySelector('input[id="firstName"'), null);
     const lastName = lastNameValidation(form.querySelector('input[id="lastName"'), null);
-    const phoneNo = phoneNoValidation(form.querySelector('input[name="phoneNo"'), null, null);
+    const phone = phoneValidation(form.querySelector('input[name="phone"'), null, null);
     const gender = genderValidation(`gender_${userEmail}`, null);
     const hobby = hobbyValidation(`hobby_${userEmail}`, null);
     const technology = technologyValidation(form.querySelector('select').id, null);
 
     // * Validate every field  
-    if (firstName && lastName && phoneNo && gender && hobby && technology) {
+    if (firstName && lastName && phone && gender && hobby && technology) {
         const data = {
             firstName: firstName,
             lastName: lastName,
             email: userEmail,
-            phoneNo: phoneNo,
+            phone: phone,
             gender: gender,
             hobby: hobby,
             technology: technology

@@ -52,25 +52,25 @@ function email_validation() {
 }
 
 // * Phone No. validation
-function phoneNo_validation() {
-    const phoneNo_regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    const phoneNo = document.getElementById("phoneNo").value.trim();
-    const phoneNo_error = document.getElementById("phoneNo_error");
-    if (phoneNo == "" || phoneNo == null) {
-        phoneNo_error.textContent = "This field is required";
-        phoneNo_error.style.display = "block"
+function phone_validation() {
+    const phone_regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    const phone = document.getElementById("phone").value.trim();
+    const phone_error = document.getElementById("phone_error");
+    if (phone == "" || phone == null) {
+        phone_error.textContent = "This field is required";
+        phone_error.style.display = "block"
         return false
     }
     else {
-        phoneNo_error.textContent = "";
-        phoneNo_error.style.display = "none"
-        if (phoneNo.match(phoneNo_regex)) {
-            phoneNo_error.textContent = "";
-            phoneNo_error.style.display = "none"
+        phone_error.textContent = "";
+        phone_error.style.display = "none"
+        if (phone.match(phone_regex)) {
+            phone_error.textContent = "";
+            phone_error.style.display = "none"
             return true
         } else {
-            phoneNo_error.textContent = "Invalid Phone number!";
-            phoneNo_error.style.display = "block"
+            phone_error.textContent = "Invalid Phone number!";
+            phone_error.style.display = "block"
             return false
         }
     }
@@ -119,7 +119,7 @@ function submit_func() {
         first_name_validation(),
         last_name_validation(),
         email_validation(),
-        phoneNo_validation(),
+        phone_validation(),
         zipcode_validation(),
         dob_validation()
     ];

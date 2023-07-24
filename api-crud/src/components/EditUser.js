@@ -1,18 +1,22 @@
-// * React Components
 import React, { useState, useCallback } from 'react'
 
-// * Third party Components
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
-
-import CustomElements from './CustomElements'
-import Gender from './Gender'
-import SelectElement from './SelectElement'
+import { useNavigate, useParams } from 'react-router-dom'
+import userStore from '../users/Store';
 
 
-const Home = () => {
+import CustomElements from './CustomElements';
+import Gender from './Gender';
+import SelectElement from './SelectElement';
+
+const EditUser = () => {
 
     const navigate = useNavigate()
+    const { id } = useParams()
+
+    const dataList = () => {
+        navigate("/data-list")
+    }
+
 
     const [firstNameState, serFirstNameState] = useState({ value: '', message: '', flag: true });
     const [lastNameState, setLastNameState] = useState({ value: '', message: '', flag: true });
@@ -104,86 +108,73 @@ const Home = () => {
         }
     }, [technologyState])
 
-    const submitForm = () => {
-        // if (!firstNameState.flag && !lastNameState.flag && !emailState.flag && !phoneState.flag && !genderState.flag && !technologyState.flag) {
-        //     dispatch({
-        //         type: 'ADD_USER',
-        //         user: {
-        //             firstName: firstNameState.value,
-        //             lastName: lastNameState.value,
-        //             email: emailState.value,
-        //             phone: phoneState.value,
-        //             gender: genderState.value,
-        //             technology: technologyState.value
-        //         }
-        //     })
-        //     Swal.fire('User Registered', 'New User Registered successfully!', 'success')
-        //         .then(() => {
-        //             navigate("/data-list")
-        //         });
 
-        // }
-        // else {
-        //     !firstNameState.flag || serFirstNameState({ ...firstNameState, value: '', message: firstNameState.message || 'First name is required.', flag: true })
-        //     !lastNameState.flag || setLastNameState({ ...lastNameState, value: '', message: lastNameState.message || 'Last name is required.', flag: true })
-        //     !emailState.flag || setEmailState({ ...emailState, value: '', message: emailState.message || 'Email is required.', flag: true })
-        //     !phoneState.flag || setPhoneState({ ...phoneState, value: '', message: phoneState.message || 'Phone No is required.', flag: true })
-        //     !genderState.flag || setGenderState({ ...genderState, value: '', message: 'Please select your Gender!', flag: true })
-        //     !technologyState.flag || setTechnologyState({ ...technologyState, value: '', message: technologyState.message || 'Please select any one Technology!', flag: true })
-        // }
+    const updateUser = () => {
+        console.log("UserData Update")
+        console.log("userData.phone =", userData.phone)
     }
 
-    const dataList = () => {
-        navigate("/data-list");
-    }
+    userStore.dispatch({
+        type: 'GET_USER',
+        payload: {
+            id: id
+        }
+    })
 
+    const userData = userStore.getState()[0]
     return (
         <>
-            <h2 className="mb-3">Register Form</h2>
-            <form method="post" action="" noValidate>
+            <h2 className="mb-2">Update data</h2>
+            <form className="container" method="post" action="" noValidate>
                 <CustomElements
                     id="firstName" type="text" text="First name"
+                    value={userData.firstName}
                     onChange={(e) => checkFirstName(e.target.value.trim())}
                     InputFieldState={firstNameState}
                 />
 
                 <CustomElements
                     id="lastName" type="text" text="Last name"
+                    value={userData.lastName}
                     onChange={(e) => checkLastName(e.target.value.trim())}
                     InputFieldState={lastNameState}
                 />
 
                 <CustomElements
-                    id="email" type="email" text="Email address"
+                    id="email" type="email" text="Email address" disabled={true}
                     onChange={(e) => checkEmail(e.target.value.trim())}
-                    InputFieldState={emailState}
+                    value={userData.email} InputFieldState=''
                 />
 
                 <CustomElements
-                    id="phone" type="number" text="Phone no."
+                    id="phoneNo" type="number" text="Phone no."
+                    value={userData.phone}
                     onChange={(e) => checkPhone(e.target.value.trim())}
                     InputFieldState={phoneState}
                 />
 
                 <label className="form-label">Gender</label>
-                <Gender
-                    gender={genderState.value}
-                    onChange={(e) => checkGender(e.target.value)}
-                    RadioFieldState={genderState}
-                />
+                <div className="input-group mb-3">
+                    <Gender
+                        gender={userData.gender}
+                        onChange={(e) => checkGender(e.target.value)}
+                        RadioFieldState={genderState}
+                    />
+                </div>
 
                 <SelectElement
-                    id="technology"
-                    technologyList=''
-                    onChange={checkTechnology}
+                    id={"technology"}
+                    technologyList={userData.technology.split(',')}
+                    onChange={(e) => checkTechnology(e)}
                     SelectFieldState={technologyState}
                 />
 
-                <button type="button" onClick={submitForm} className="btn btn-primary ms-2">Submit</button>
-                <button onClick={dataList} className="btn btn-success ms-2">View List</button>
+                <button type="button" onClick={updateUser} className="btn btn-success">Update</button>
+                <button onClick={dataList} className="btn btn-primary">Back</button>
             </form>
+
         </>
     )
 }
 
-export default Home
+export default EditUser

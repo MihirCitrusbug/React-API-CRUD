@@ -76,24 +76,24 @@ function emailValidation() {
 }
 
 // * Phone No. validation
-function phoneNoValidation() {
-    const phoneNo_regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    const phoneNo = document.getElementById("phoneNo").value.trim();
-    const phoneNoRequiredError = document.getElementById("phoneNoRequiredError")
-    const phoneNoInvalidError = document.getElementById("phoneNoInvalidError")
+function phoneValidation() {
+    const phone_regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    const phone = document.getElementById("phone").value.trim();
+    const phoneRequiredError = document.getElementById("phoneRequiredError")
+    const phoneInvalidError = document.getElementById("phoneInvalidError")
 
-    if (phoneNo == "" || phoneNo == null) {
-        phoneNoRequiredError.style.display = "block"
-        phoneNoInvalidError.style.display = "none"
+    if (phone == "" || phone == null) {
+        phoneRequiredError.style.display = "block"
+        phoneInvalidError.style.display = "none"
         return false
     }
     else {
-        phoneNoRequiredError.style.display = "none"
-        if (phoneNo.match(phoneNo_regex)) {
-            phoneNoInvalidError.style.display = "none"
-            return phoneNo
+        phoneRequiredError.style.display = "none"
+        if (phone.match(phone_regex)) {
+            phoneInvalidError.style.display = "none"
+            return phone
         } else {
-            phoneNoInvalidError.style.display = "block"
+            phoneInvalidError.style.display = "block"
             return false
         }
     }
@@ -153,17 +153,17 @@ function submitForm() {
     const firstName = firstNameValidation();
     const lastName = lastNameValidation();
     const email = emailValidation();
-    const phoneNo = phoneNoValidation();
+    const phone = phoneValidation();
     const gender = genderValidation();
     const hobby = hobbyValidation();
     const technology = technologyValidation();
-    const fullPhoneNo = `${document.querySelector(".iti__selected-flag").title.split(' ').slice(-1)[0]} ${phoneNo}`
-    if (firstName && lastName && email && phoneNo && gender && hobby && technology) {
+    const fullPhone = `${document.querySelector(".iti__selected-flag").title.split(' ').slice(-1)[0]} ${phone}`
+    if (firstName && lastName && email && phone && gender && hobby && technology) {
         const data = {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            phoneNo: fullPhoneNo,
+            phone: fullPhone,
             gender: gender,
             hobby: hobby,
             technology: technology

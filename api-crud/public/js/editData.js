@@ -18,7 +18,7 @@ document.getElementById('lastName').value = myData.lastName
 document.getElementById('email').value = myData.email
 
 // * Fill Phone no value in field
-document.getElementById('phoneNo').value = myData.phoneNo
+document.getElementById('phone').value = myData.phone
 
 // * Selected Technology data
 const technologyOpt = document.getElementById('technology').options
@@ -49,16 +49,16 @@ function updateForm() {
     const firstName = firstNameValidation();
     const lastName = lastNameValidation();
     const email = emailValidation();
-    const phoneNo = phoneNoValidation();
+    const phone = phoneValidation();
     const gender = genderValidation();
     const hobby = hobbyValidation();
     const technology = technologyValidation();
-    if (firstName && lastName && email && phoneNo && gender && hobby && technology) {
+    if (firstName && lastName && email && phone && gender && hobby && technology) {
         const data = {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            phoneNo: phoneNo,
+            phone: phone,
             gender: gender,
             hobby: hobby,
             technology: technology
