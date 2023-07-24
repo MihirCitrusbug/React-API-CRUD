@@ -197,8 +197,8 @@ const Home = () => {
                     SelectFieldState={technologyState}
                 />
 
-                <button type="button" onClick={submitForm} className="btn btn-primary ms-2">Submit</button>
-                <button onClick={dataList} className="btn btn-success ms-2">View List</button>
+                <button type="button" onClick={submitForm} className="btn btn-primary mx-1">Submit</button>
+                <button onClick={dataList} className="btn btn-success mx-1">View List</button>
             </form>
         </>
     )

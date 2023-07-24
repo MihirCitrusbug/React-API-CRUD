@@ -57,8 +57,8 @@ const DataList = () => {
                     <TableRows users={userList} setUserList={setUserList} />
                 </tbody>
             </table>
-            <button className="btn btn-primary ms-2" onClick={back}>Back</button>
-            <button className="btn btn-primary ms-2" onClick={refresh}>Refresh</button>
+            <button className="btn btn-primary mx-1" onClick={back}>Back</button>
+            <button className="btn btn-primary mx-1" onClick={refresh}>Refresh</button>
         </>
     )
 }

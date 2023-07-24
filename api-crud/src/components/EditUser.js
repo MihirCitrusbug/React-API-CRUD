@@ -206,8 +206,8 @@ const EditUser = () => {
                     SelectFieldState={technologyState}
                 />
 
-                <button type="button" onClick={updateUser} className="btn btn-success">Update</button>
-                <button onClick={dataList} className="btn btn-primary">Back</button>
+                <button type="button" onClick={updateUser} className="btn btn-success mx-1">Update</button>
+                <button onClick={dataList} className="btn btn-primary mx-1">Back</button>
             </form>
 
         </>
