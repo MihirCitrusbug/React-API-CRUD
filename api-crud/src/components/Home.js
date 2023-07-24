@@ -4,7 +4,10 @@ import React, { useState, useCallback } from 'react'
 // * Third party Components
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import axios from 'axios'
+import userStore from '../users/Store'
 
+import { CRUD_API_URL } from '../App';
 import CustomElements from './CustomElements'
 import Gender from './Gender'
 import SelectElement from './SelectElement'
@@ -105,32 +108,42 @@ const Home = () => {
     }, [technologyState])
 
     const submitForm = () => {
-        // if (!firstNameState.flag && !lastNameState.flag && !emailState.flag && !phoneState.flag && !genderState.flag && !technologyState.flag) {
-        //     dispatch({
-        //         type: 'ADD_USER',
-        //         user: {
-        //             firstName: firstNameState.value,
-        //             lastName: lastNameState.value,
-        //             email: emailState.value,
-        //             phone: phoneState.value,
-        //             gender: genderState.value,
-        //             technology: technologyState.value
-        //         }
-        //     })
-        //     Swal.fire('User Registered', 'New User Registered successfully!', 'success')
-        //         .then(() => {
-        //             navigate("/data-list")
-        //         });
-
-        // }
-        // else {
-        //     !firstNameState.flag || serFirstNameState({ ...firstNameState, value: '', message: firstNameState.message || 'First name is required.', flag: true })
-        //     !lastNameState.flag || setLastNameState({ ...lastNameState, value: '', message: lastNameState.message || 'Last name is required.', flag: true })
-        //     !emailState.flag || setEmailState({ ...emailState, value: '', message: emailState.message || 'Email is required.', flag: true })
-        //     !phoneState.flag || setPhoneState({ ...phoneState, value: '', message: phoneState.message || 'Phone No is required.', flag: true })
-        //     !genderState.flag || setGenderState({ ...genderState, value: '', message: 'Please select your Gender!', flag: true })
-        //     !technologyState.flag || setTechnologyState({ ...technologyState, value: '', message: technologyState.message || 'Please select any one Technology!', flag: true })
-        // }
+        if (!firstNameState.flag && !lastNameState.flag && !emailState.flag && !phoneState.flag && !genderState.flag && !technologyState.flag) {
+            const user = {
+                firstName: firstNameState.value,
+                lastName: lastNameState.value,
+                email: emailState.value,
+                phone: phoneState.value,
+                gender: genderState.value,
+                technology: technologyState.value
+            }
+            axios.post(`${CRUD_API_URL}/users`, user)
+                .then((res) => {
+                    user._id = res.data._id
+                    userStore.dispatch({
+                        type: 'ADD_USER',
+                        payload: user
+                    })
+                    Swal.fire('User Registered', 'New User Registered successfully!', 'success')
+                        .then(() => {
+                            navigate('/data-list')
+                        })
+                })
+                .catch(() => {
+                    Swal.fire({ icon: 'error', title: 'Oops...', text: 'Something went wrong!', })
+                        .then(() => {
+                            navigate('/data-list')
+                        })
+                })
+        }
+        else {
+            !firstNameState.flag || serFirstNameState({ ...firstNameState, value: '', message: firstNameState.message || 'First name is required.', flag: true })
+            !lastNameState.flag || setLastNameState({ ...lastNameState, value: '', message: lastNameState.message || 'Last name is required.', flag: true })
+            !emailState.flag || setEmailState({ ...emailState, value: '', message: emailState.message || 'Email is required.', flag: true })
+            !phoneState.flag || setPhoneState({ ...phoneState, value: '', message: phoneState.message || 'Phone No is required.', flag: true })
+            !genderState.flag || setGenderState({ ...genderState, value: '', message: 'Please select your Gender!', flag: true })
+            !technologyState.flag || setTechnologyState({ ...technologyState, value: '', message: technologyState.message || 'Please select any one Technology!', flag: true })
+        }
     }
 
     const dataList = () => {

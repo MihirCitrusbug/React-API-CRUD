@@ -2,10 +2,11 @@
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios';
+import userStore from '../users/Store';
 import { CRUD_API_URL } from '../App';
 
 
-const TableRows = ({ users }) => {
+const TableRows = ({ users, setUserList }) => {
     const navigate = useNavigate()
 
     const deleteUser = (id) => {
@@ -17,17 +18,23 @@ const TableRows = ({ users }) => {
             if (result.isConfirmed) {
                 axios.delete(`${CRUD_API_URL}/users/${id}`)
                     .then(() => {
-                        Swal.fire('User Deleted successfully!', 'success')
+                        userStore.dispatch({
+                            type: 'REMOVE_USER',
+                            payload: {
+                                id: id
+                            }
+                        })
+                        setUserList(userStore.getState())
+                        Swal.fire('User Deleted', 'User Deleted successfully!', 'success')
                             .then(() => {
-                                navigate("/data-list")
+                                navigate('/data-list')
                             })
                     })
                     .catch(() => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                        })
+                        Swal.fire({ icon: 'error', title: 'Oops...', text: 'Something went wrong!', })
+                            .then(() => {
+                                navigate('/data-list')
+                            })
                     })
 
             }

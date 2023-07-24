@@ -8,7 +8,7 @@ import EditUser from './components/EditUser';
 
 // * Third party Components
 import { Routes, Route } from 'react-router-dom'
-export const CRUD_API_URL = 'https://crudcrud.com/api/af35fa7cb7b14ae49e9b3e49c857d778'
+export const CRUD_API_URL = 'https://crudcrud.com/api/b27fbe5e256c41c6b06ec2d3859d8916'
 
 
 function App() {

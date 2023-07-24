@@ -1,5 +1,5 @@
 // * React Components
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 // * Third party Components
 import { useNavigate } from 'react-router-dom';
@@ -18,9 +18,13 @@ const DataList = () => {
         navigate("/")
     }
 
+
     const refresh = () => {
         axios.get(`${CRUD_API_URL}/users`)
             .then(response => {
+                userStore.dispatch({
+                    type: 'DELETE_OLD_USERS'
+                })
                 response.data.map(user => {
                     userStore.dispatch({
                         type: 'ADD_USER',
@@ -46,7 +50,7 @@ const DataList = () => {
                     </tr>
                 </thead>
                 <tbody id="tableBodyData">
-                    <TableRows users={userList} />
+                    <TableRows users={userList} setUserList={setUserList} />
                 </tbody>
             </table>
             <button className="btn btn-primary ms-2" onClick={back}>Back</button>

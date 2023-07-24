@@ -16,14 +16,8 @@ const ViewUser = () => {
     const dataList = () => {
         navigate("/data-list")
     }
-    userStore.dispatch({
-        type: 'GET_USER',
-        payload: {
-            id: id
-        }
-    })
 
-    const userData = userStore.getState()[0]
+    const userData = userStore.getState().filter(user => user._id === id)[0]
     return (
         <>
             {userData && (
