@@ -1,15 +1,10 @@
-import { useEffect } from 'react';
 import { Provider } from 'react-redux'
-import unicornStore from "./unicorns/Store";
-import axios from 'axios'
+import userStore from "./users/Store";
 import Home from './components/Home';
+import DataList from './components/DataList';
 // * Third party Components
 import { Routes, Route } from 'react-router-dom'
-import Entity from './components/Entity';
-export const CRUD_API_URL = 'https://crudcrud.com/api/0ee1f72d70534fb1b05e32ffb51bfe39'
-
-
-// import CRUD_API_URL from '../src/env'
+export const CRUD_API_URL = 'https://crudcrud.com/api/48238e3837be457b9a0bb4d5dfc358aa'
 
 
 function App() {
@@ -32,10 +27,10 @@ function App() {
   // }, [])
 
   return (
-    <Provider store={unicornStore}>
+    <Provider store={userStore}>
       <Routes>
         <Route path='/' element={<Home />}></Route>
-        <Route path='/*' element={<Entity />}></Route>
+        <Route path='/data-list' element={<DataList />}></Route>
       </Routes>
 
     </Provider>
