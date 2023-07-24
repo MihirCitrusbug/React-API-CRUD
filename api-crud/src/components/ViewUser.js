@@ -1,10 +1,17 @@
+// * React Component
 import React from 'react'
+
+// * Third party Hooks
 import { useParams, useNavigate } from "react-router-dom";
+
+// * Redux Storage
 import userStore from '../users/Store';
 
+// * Custom Components
 import CustomElements from './CustomElements';
 import Gender from './Gender';
 import SelectElement from './SelectElement';
+
 
 const ViewUser = () => {
     const navigate = useNavigate()

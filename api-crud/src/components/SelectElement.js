@@ -1,7 +1,7 @@
 // * React Components
 import React from 'react'
 
-// * Custom Components
+// * Custom Component
 import Options from './Options'
 
 const SelectElement = ({ id, onChange, technologyList, SelectFieldState, disabled }) => {

@@ -1,15 +1,21 @@
+// * React Components and Hooks
 import React, { useState, useCallback } from 'react'
 
-import { useNavigate, useParams } from 'react-router-dom'
-import userStore from '../users/Store';
-import Swal from 'sweetalert2'
+// * Third party Components and Hooks
 import axios from 'axios'
+import Swal from 'sweetalert2'
+import { useNavigate, useParams } from 'react-router-dom'
 
+// * Redux Storage
+import userStore from '../users/Store';
 
-import { CRUD_API_URL } from '../App';
+// * Custom Components
 import CustomElements from './CustomElements';
 import Gender from './Gender';
 import SelectElement from './SelectElement';
+
+// * API URL
+import { CRUD_API_URL } from '../App';
 
 const EditUser = () => {
 

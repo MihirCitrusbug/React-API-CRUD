@@ -1,23 +1,27 @@
-// * React Components
+// * React Components and Hooks
 import React, { useState } from 'react'
 
 // * Third party Components
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { CRUD_API_URL } from '../App';
+import { useNavigate } from 'react-router-dom';
+
+// * Redux Storage
+import userStore from '../users/Store';
 
 // * Custom Components
 import TableRows from './TableRows';
-import userStore from '../users/Store';
+
+// * API URL
+import { CRUD_API_URL } from '../App';
+
+
 const DataList = () => {
     const navigate = useNavigate()
     const [userList, setUserList] = useState(userStore.getState())
 
-
     const back = () => {
         navigate("/")
     }
-
 
     const refresh = () => {
         axios.get(`${CRUD_API_URL}/users`)
@@ -26,7 +30,7 @@ const DataList = () => {
                     type: 'DELETE_OLD_USERS'
                 })
                 response.data.map(user => {
-                    userStore.dispatch({
+                    return userStore.dispatch({
                         type: 'ADD_USER',
                         payload: user
                     })

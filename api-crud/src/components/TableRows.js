@@ -1,8 +1,12 @@
 // * Third party Components
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
 import axios from 'axios';
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom';
+
+// * Redux Storage
 import userStore from '../users/Store';
+
+// * API URL
 import { CRUD_API_URL } from '../App';
 
 
